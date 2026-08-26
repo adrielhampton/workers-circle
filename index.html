@@ -128,9 +128,9 @@
     <button class="share-btn" id="share-native">Share the Event</button>
     <div class="share-row">
       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://twitter.com/intent/tweet?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Laurence%20Fishburne%20%26%20more.&url=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">X</a>
-      <a href="https://wa.me/?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Laurence%20Fishburne%20%26%20more.%20Tickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="mailto:?subject=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20Live%2C%20Sept%2010&body=One%20night%20only%3A%20An%20American%20Tail%2C%20performed%20live%20September%2010%2C%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Laurence%20Fishburne%2C%20Jesse%20Eisenberg%20and%20more.%20Every%20ticket%20supports%20the%20Workers%20Circle.%0A%0ATickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" rel="noopener">Email</a>
+      <a href="https://twitter.com/intent/tweet?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.&url=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">X</a>
+      <a href="https://wa.me/?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.%20Tickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:?subject=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20Live%2C%20Sept%2010&body=One%20night%20only%3A%20An%20American%20Tail%2C%20performed%20live%20September%2010%2C%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%2C%20Richard%20Kind%20and%20more.%20Every%20ticket%20supports%20the%20Workers%20Circle.%0A%0ATickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" rel="noopener">Email</a>
     </div>
   </div>
 
@@ -147,14 +147,14 @@
         <b>Mark Hamill</b><span>Actor &amp; pop-culture icon</span>
       </div>
       <div class="castcard">
-        <img src="images/fishburne.jpg" alt="Laurence Fishburne">
-        <b>Laurence Fishburne</b><span>Tony and Emmy Award–winning actor</span>
+        <img src="images/hill.jpg" alt="Dulé Hill">
+        <b>Dulé Hill</b><span>Star of The West Wing and Psych</span>
       </div>
       <div class="castcard">
         <img src="images/peters.jpg" alt="Bernadette Peters">
         <b>Bernadette Peters</b><span>Tony Award–winning actress and singer</span>
       </div>
-      <div class="more-cast"><b>Also starring:</b> Richard Kind · Malky Goldman · Dulé Hill · Tracie Thoms · Josh Andrés Rivera<br>…with more to be announced.</div>
+      <div class="more-cast"><b>Also starring:</b> Richard Kind · Malky Goldman · Tracie Thoms · Josh Andrés Rivera<br>…with more to be announced.</div>
     </div>
 
     <h2>Good to Know</h2>
@@ -200,7 +200,7 @@ tick(); setInterval(tick, 30000);
 document.getElementById('share-native').addEventListener('click', async () => {
   const data = {
     title: "An American Tail — Live, Sept 10",
-    text: "Join me for An American Tail — performed live, one night only, September 10! Starring Mark Hamill, Bernadette Peters, Laurence Fishburne & more.",
+    text: "Join me for An American Tail — performed live, one night only, September 10! Starring Mark Hamill, Bernadette Peters, Jesse Eisenberg & more.",
     url: "https://secure.actblue.com/donate/american-tail-v1b?refcode=at26-share"
   };
   if (navigator.share) { try { await navigator.share(data); } catch(e){} }
