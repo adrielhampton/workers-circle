@@ -154,7 +154,9 @@
         <img src="images/peters.jpg" alt="Bernadette Peters">
         <b>Bernadette Peters</b><span>Tony Award–winning actress and singer</span>
       </div>
-      <div class="more-cast"><b>Also starring:</b> Richard Kind · Malky Goldman · Tracie Thoms · Josh Andrés Rivera<br>…with more to be announced.</div>
+     <div class="more-cast"><b>Hosted by</b> Whoopi Goldberg and Ken Jeong<br>
+    <b>Also starring:</b> Joseph Gordon-Levitt · Alan Kim as Fievel · Richard Kind · Tracie Thoms · Josh Andrés Rivera · Paola Lázaro · Kelly McCreary · Sarah Cooper · Malky Goldman · Bradley Dean · Dan Burke · Chris Coreschi · Amanda Cortinas · Adam Harrington · Matthew Nardozzi · Allison Posner · Jay Reidl · Abigail Solomon<br>
+    …with a special intermission conversation with Joy Reid, live klezmer from Jake Shulman-Ment, and more.</div>
     </div>
 
     <h2>Good to Know</h2>
@@ -210,5 +212,13 @@ document.getElementById('share-native').addEventListener('click', async () => {
 
 <!-- GoatCounter -->
 <script data-goatcounter="https://workercirclebenefit2026.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+  // >>> STREAM_URL: the Hovercast page <
+  var STREAM_URL = "https://pages.hovercast.live/act-tv/an-american-tail";
+  // >>> DOORS_OPEN: Thu Sept 10, 2026, 8:15 PM ET = 00:15 UTC Sept 11 <
+  var DOORS_OPEN = Date.UTC(2026, 8, 11, 0, 15);
+  function toShow() { if (Date.now() >= DOORS_OPEN) { window.location.replace(STREAM_URL); return true; } return false; }
+  if (!toShow()) { setInterval(toShow, 30000); }
+</script>
 </body>
 </html>
