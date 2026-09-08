@@ -117,7 +117,7 @@
 
   <!-- ===== STATE 2: stream live ===== -->
   <div class="state" id="state-live">
-    <div class="pill">✓ Doors are open</div><br>
+    <div class="pill" id="live-pill">✓ You're in — the show opens here</div><br>
     <a class="watch" id="watch-btn" href="#">▶ &nbsp;Watch Now</a>
     <p class="live-note">Trouble with the stream? Refresh this page — the newest link always lives here.</p>
   </div>
@@ -179,12 +179,14 @@
 <script>
 /* ================= CONFIG — the only things you ever edit ================= */
 const STREAM_URL = "https://pages.hovercast.live/act-tv/an-american-tail"; // the Hovercast page
-const EVENT_ISO  = "2026-09-08T16:05:00-07:00";   // showtime: Sept 10, 8:30 PM ET
-const DOORS_MIN  = 15;                            // minutes before showtime the page starts sending people to the stream
+const EVENT_ISO  = "2026-09-10T20:30:00-04:00";   // showtime: Sept 10, 8:30 PM ET
+const DOORS_MIN  = 15;                            // minutes before showtime the page redirects to the stream
+const BUTTON_MIN = 60;                            // minutes before showtime the Watch Now button appears (no redirect yet)
 /* ========================================================================= */
 
 const showtime  = new Date(EVENT_ISO).getTime();
 const doorsOpen = showtime - DOORS_MIN * 60000;
+const buttonOn  = showtime - BUTTON_MIN * 60000;
 const pre  = document.getElementById('state-pre');
 const live = document.getElementById('state-live');
 const btn  = document.getElementById('watch-btn');
@@ -192,16 +194,21 @@ btn.href = STREAM_URL;
 
 let sent = false;
 function toShow(){
-  if (Date.now() < doorsOpen) return false;
+  const now = Date.now();
+  if (now < buttonOn) return false;
+  // From T-60: button visible, countdown still running. From T-15: hide countdown and redirect once.
   pre.classList.remove('active'); live.classList.add('active');
-  document.getElementById('count').style.display = 'none';
-  if (!sent) { sent = true; window.location.replace(STREAM_URL); }
-  return true;
+  if (now >= doorsOpen) {
+    document.getElementById('count').style.display = 'none';
+    if (!sent) { sent = true; window.location.replace(STREAM_URL); }
+    return true;
+  }
+  return false;
 }
 
 function tick(){
   if (toShow()) return;
-  pre.classList.add('active');
+  if (Date.now() < buttonOn) pre.classList.add('active');
   const d = showtime - Date.now();
   document.getElementById('cd').textContent = Math.floor(d/86400000);
   document.getElementById('ch').textContent = Math.floor(d%86400000/3600000);
