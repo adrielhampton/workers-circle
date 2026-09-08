@@ -117,9 +117,12 @@
 
   <!-- ===== STATE 2: stream live ===== -->
   <div class="state" id="state-live">
-    <a class="watch" id="watch-btn" href="#" rel="noopener">▶ &nbsp;Watch Now</a>
+    <div class="pill">✓ Doors are open</div><br>
+    <a class="watch" id="watch-btn" href="#">▶ &nbsp;Watch Now</a>
     <p class="live-note">Trouble with the stream? Refresh this page — the newest link always lives here.</p>
   </div>
+
+  <noscript><p><a class="watch" href="https://pages.hovercast.live/act-tv/an-american-tail">▶ &nbsp;Watch the show</a></p></noscript>
 
   <!-- ===== share ===== -->
   <div class="share">
@@ -128,9 +131,9 @@
     <button class="share-btn" id="share-native">Share the Event</button>
     <div class="share-row">
       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://twitter.com/intent/tweet?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.&url=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">X</a>
-      <a href="https://wa.me/?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.%20Tickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="mailto:?subject=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20Live%2C%20Sept%2010&body=One%20night%20only%3A%20An%20American%20Tail%2C%20performed%20live%20September%2010%2C%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%2C%20Richard%20Kind%20and%20more.%20Every%20ticket%20supports%20the%20Workers%20Circle.%0A%0ATickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" rel="noopener">Email</a>
+      <a href="https://twitter.com/intent/tweet?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Hosted%20by%20Whoopi%20Goldberg%2C%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.&url=https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">X</a>
+      <a href="https://wa.me/?text=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20performed%20live%2C%20one%20night%20only%2C%20Sept%2010!%20Hosted%20by%20Whoopi%20Goldberg%2C%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%20%26%20more.%20Tickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:?subject=Join%20me%20for%20An%20American%20Tail%20%E2%80%94%20Live%2C%20Sept%2010&body=One%20night%20only%3A%20An%20American%20Tail%2C%20performed%20live%20September%2010%2C%20hosted%20by%20Whoopi%20Goldberg%20and%20starring%20Mark%20Hamill%2C%20Bernadette%20Peters%2C%20Jesse%20Eisenberg%2C%20Richard%20Kind%20and%20more.%20Every%20ticket%20supports%20the%20Workers%20Circle.%0A%0ATickets%3A%20https%3A%2F%2Fsecure.actblue.com%2Fdonate%2Famerican-tail-v1b%3Frefcode%3Dat26-share" rel="noopener">Email</a>
     </div>
   </div>
 
@@ -175,23 +178,31 @@
 
 <script>
 /* ================= CONFIG — the only things you ever edit ================= */
-const STREAM_URL = "";                            // paste the YouTube link when it's final — page flips to live state automatically
-const EVENT_ISO  = "2026-09-10T20:30:00-04:00";   // Sept 10, 8:30 PM ET
+const STREAM_URL = "https://pages.hovercast.live/act-tv/an-american-tail"; // the Hovercast page
+const EVENT_ISO  = "2026-09-10T20:30:00-04:00";   // showtime: Sept 10, 8:30 PM ET
+const DOORS_MIN  = 15;                            // minutes before showtime the page starts sending people to the stream
 /* ========================================================================= */
 
-const pre = document.getElementById('state-pre');
+const showtime  = new Date(EVENT_ISO).getTime();
+const doorsOpen = showtime - DOORS_MIN * 60000;
+const pre  = document.getElementById('state-pre');
 const live = document.getElementById('state-live');
-if (STREAM_URL) {
-  document.getElementById('watch-btn').href = STREAM_URL;
-  live.classList.add('active');
-} else {
-  pre.classList.add('active');
+const btn  = document.getElementById('watch-btn');
+btn.href = STREAM_URL;
+
+let sent = false;
+function toShow(){
+  if (Date.now() < doorsOpen) return false;
+  pre.classList.remove('active'); live.classList.add('active');
+  document.getElementById('count').style.display = 'none';
+  if (!sent) { sent = true; window.location.replace(STREAM_URL); }
+  return true;
 }
 
-const target = new Date(EVENT_ISO).getTime();
 function tick(){
-  const d = target - Date.now();
-  if (d <= 0) { document.getElementById('count').style.display = 'none'; return; }
+  if (toShow()) return;
+  pre.classList.add('active');
+  const d = showtime - Date.now();
   document.getElementById('cd').textContent = Math.floor(d/86400000);
   document.getElementById('ch').textContent = Math.floor(d%86400000/3600000);
   document.getElementById('cm').textContent = Math.floor(d%3600000/60000);
@@ -202,7 +213,7 @@ tick(); setInterval(tick, 30000);
 document.getElementById('share-native').addEventListener('click', async () => {
   const data = {
     title: "An American Tail — Live, Sept 10",
-    text: "Join me for An American Tail — performed live, one night only, September 10! Starring Mark Hamill, Bernadette Peters, Jesse Eisenberg & more.",
+    text: "Join me for An American Tail — performed live, one night only, September 10! Hosted by Whoopi Goldberg, starring Mark Hamill, Bernadette Peters, Jesse Eisenberg & more.",
     url: "https://secure.actblue.com/donate/american-tail-v1b?refcode=at26-share"
   };
   if (navigator.share) { try { await navigator.share(data); } catch(e){} }
@@ -212,13 +223,5 @@ document.getElementById('share-native').addEventListener('click', async () => {
 
 <!-- GoatCounter -->
 <script data-goatcounter="https://workercirclebenefit2026.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  <script>
-  // >>> STREAM_URL: the Hovercast page <
-  var STREAM_URL = "https://pages.hovercast.live/act-tv/an-american-tail";
-  // >>> DOORS_OPEN: Thu Sept 10, 2026, 8:15 PM ET = 00:15 UTC Sept 11 <
-  var DOORS_OPEN = Date.UTC(2026, 8, 11, 0, 15);
-  function toShow() { if (Date.now() >= DOORS_OPEN) { window.location.replace(STREAM_URL); return true; } return false; }
-  if (!toShow()) { setInterval(toShow, 30000); }
-</script>
 </body>
 </html>
